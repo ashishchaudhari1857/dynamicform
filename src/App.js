@@ -1,23 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Checkboxes from "./Components/Checkbox";
+// import FormGenerator from './Components/FormGenerator';
+import FormBuilder from "./Components/FormBuilder";
+import Options from "./Components/Options";
+import RadioButtons from "./Components/RadioButtons";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <FormGenerator/> */}
+      <FormBuilder />
     </div>
   );
 }
