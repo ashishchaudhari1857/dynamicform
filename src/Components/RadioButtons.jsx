@@ -4,6 +4,7 @@ import useDynamicInputs from "../Custom/UseDynamicCount";
 const RadioButtons = ({ dataFun }) => {
   const { count, labels, handleCountChange, handleLabelChange } =
     useDynamicInputs(1);
+  // console.log([...labels]);
   dataFun(count, labels);
   return (
     <div>

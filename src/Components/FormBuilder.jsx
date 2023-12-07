@@ -4,20 +4,19 @@ import Input from "./Input";
 import SelectButton from "./SelectButton";
 import RadioButtons from "./RadioButtons";
 import Checkboxes from "./Checkbox";
-import { Dropdown } from "bootstrap";
+import Dropdown from "./Dropdown";
 
 const FormBuilder = () => {
   const [formFields, setFormFields] = useState([]);
   const formref = useRef();
   const [currentField, setCurrentField] = useState({ label: "", type: "text" });
-  const [label, setLabel] = useState([]);
+  const [option, setOption] = useState([]);
 
-  const dataRadiobutton = (count, label) => {
-    console.log(label);
-    setLabel(label);
+  const dataRadiobutton = (count, newLabel) => {
+    setOption(newLabel);
   };
   const addField = () => {
-    console.log("isc", currentField.label);
+    // console.log("isc", currentField.label);
     if (currentField.label === "") {
       alert("please enter label");
     } else {
@@ -96,7 +95,7 @@ const FormBuilder = () => {
                 <input name={field.label} type={field.type}></input>
               )}
               {field.type === "radio" &&
-                label.map((item, index) => {
+                option.map((item, index) => {
                   return (
                     <>
                       <label htmlFor="radio">{item}</label>
@@ -110,7 +109,7 @@ const FormBuilder = () => {
                   );
                 })}
               {field.type === "checkbox" &&
-                label.map((item, index) => {
+                option.map((item, index) => {
                   return (
                     <>
                       <label htmlFor="checkbox">{item}</label>

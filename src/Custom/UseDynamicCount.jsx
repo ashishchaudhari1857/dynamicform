@@ -1,14 +1,14 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 const useDynamicInputs = (initialCount) => {
   const [count, setCount] = useState(initialCount);
-  const [labels, setLabels] = useState(new Array(initialCount).fill(''));
+  const [labels, setLabels] = useState(new Array(initialCount).fill(""));
 
   const handleCountChange = (newCount) => {
     setCount(newCount);
-    if(newCount>=1){
-        console.log(newCount);
-        setLabels(new Array(newCount).fill(''));
+    if (newCount >= 1) {
+      console.log(newCount);
+      setLabels(new Array(newCount).fill(""));
     }
   };
 
