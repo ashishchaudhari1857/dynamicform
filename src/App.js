@@ -1,5 +1,6 @@
 import "./App.css";
 import Checkboxes from "./Components/Checkbox";
+import Form1 from "./Components/Form1";
 // import FormGenerator from './Components/FormGenerator';
 import FormBuilder from "./Components/FormBuilder";
 import Options from "./Components/Options";
@@ -9,7 +10,8 @@ function App() {
   return (
     <div className="App">
       {/* <FormGenerator/> */}
-      <FormBuilder />
+      {/* <FormBuilder /> */}
+      <Form1 />
     </div>
   );
 }

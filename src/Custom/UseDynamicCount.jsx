@@ -7,7 +7,7 @@ const useDynamicInputs = (initialCount) => {
   const handleCountChange = (newCount) => {
     setCount(newCount);
     if (newCount >= 1) {
-      console.log(newCount);
+      // console.log(newCount);
       setLabels(new Array(newCount).fill(""));
     }
   };

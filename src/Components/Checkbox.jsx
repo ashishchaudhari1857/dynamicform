@@ -14,7 +14,6 @@ const Checkboxes = ({ dataFun }) => {
         value={count}
         onChange={(e) => {
           const newCount = parseInt(e.target.value, 10);
-          console.log(newCount);
           return handleCountChange(newCount);
         }}
       />

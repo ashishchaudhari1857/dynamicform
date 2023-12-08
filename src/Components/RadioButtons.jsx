@@ -15,7 +15,7 @@ const RadioButtons = ({ dataFun }) => {
         value={count}
         onChange={(e) => {
           const newCount = parseInt(e.target.value, 10);
-          console.log(newCount);
+          // console.log(newCount);
           return handleCountChange(newCount);
         }}
       />
