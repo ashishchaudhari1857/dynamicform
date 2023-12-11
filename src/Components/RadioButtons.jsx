@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import useDynamicInputs from "../Custom/UseDynamicCount";
+import Form1 from "./Form1";
 
 const RadioButtons = ({ dataFun }) => {
   const { count, labels, handleCountChange, handleLabelChange } =
     useDynamicInputs(1);
   // console.log([...labels]);
   dataFun(count, labels);
+
+  const [visibility, setVisibility] = useState(false);
   return (
     <div>
       <label>Select the number of radio buttons:</label>
@@ -32,9 +35,18 @@ const RadioButtons = ({ dataFun }) => {
               value={label}
               onChange={(e) => handleLabelChange(index, e.target.value)}
             />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                setVisibility(true);
+              }}
+            >
+              Add Respective field
+            </button>
           </div>
         ))}
       </div>
+      {visibility && <Form1 />}
     </div>
   );
 };

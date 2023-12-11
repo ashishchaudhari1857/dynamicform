@@ -6,6 +6,7 @@ import RadioButtons from "./RadioButtons";
 import Checkboxes from "./Checkbox";
 import Dropdown from "./Dropdown";
 import FileUploadComponent from "./File";
+import "../CSS/formBuilder.css";
 
 const Form1 = () => {
   const [formFields, setFormFields] = useState([]);
@@ -25,14 +26,8 @@ const Form1 = () => {
   const sizehandle = (size) => {
     setSize(size);
   };
-  console.log("size ", size);
+  // console.log("size ", size);
   const handlerChecked = (e, item) => {
-    // console.log(item);
-    // const { value, checked } = e.target;
-    // console.log(`${value} is ${checked}`);
-    // check.map((checkItem) => {
-    //   return item !== checkItem && setCheck([...check, item]);
-    // });
     const existingItemIndex = check.findIndex(
       (checkItem) => checkItem === item
     );
@@ -47,7 +42,7 @@ const Form1 = () => {
       setCheck(updatedItem);
     }
   };
-  console.log(check);
+  // console.log(check);
 
   useEffect(() => {
     setCurrentField({ ...currentField, options: option });
@@ -76,7 +71,7 @@ const Form1 = () => {
     setCurrentField({ ...currentField, type: event.target.value });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(formref.current);
     const formData = new FormData(formref.current);
@@ -84,7 +79,13 @@ const Form1 = () => {
     formData.forEach((value, key) => {
       formValues[key] = value;
     });
-    console.log("Form Fields:", formValues);
+    const response = await fetch("http://localhost:5000/FormData", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(formValues),
+    });
+    const data = await response.json(response);
+    console.log("Form Fields:", data);
   };
 
   return (
@@ -113,6 +114,7 @@ const Form1 = () => {
           {currentField.type === "checkbox" && (
             <Checkboxes dataFun={handleOptions} />
           )}
+
           {currentField.type === "dropdown" && <Dropdown />}
           <button type="button" onClick={addField}>
             Add Field
