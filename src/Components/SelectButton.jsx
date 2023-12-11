@@ -1,9 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect } from 'react'
+import Input from './Input';
 
 
-const SelectButton = ({value,onChange,name ,sizehandle}) => {
+const SelectButton = ({value,onChange,name ,sizehandle ,validateHandler}) => {
   const [size ,setSize]=useState(2);
-  sizehandle(size)
+  const [mail ,setmail]=useState("")
+  const [phone ,setphone]=useState(0)
+  useEffect(() => {
+    sizehandle(size);
+  }, [size, sizehandle]);
+
+  useEffect(() => {
+    validateHandler(mail, phone);
+  }, [mail, phone, validateHandler]);
   return (
     <div>
         <select value={value} onChange={onChange} name={name}>
@@ -21,7 +30,8 @@ const SelectButton = ({value,onChange,name ,sizehandle}) => {
         </select>
         {value ==="file" && <><input type='number'   value={size} onChange={(e)=>{setSize(e.target.value) 
         }}></input> <span>/MB</span> </>}
-        {value ==="email"  && <input type="text"  ></input>}
+        {value ==="email"  && <><Input type="text"  placeholder='Enter Validation'  value={mail} onChange={(e)=>setmail(e.target.value)} ></Input>  <span>  (ex. length ,  @ ,etc...  )</span></>}
+        {value ==="number"  &&  <><Input type="text"  placeholder='Enter Validation'  value={phone} onChange={(e)=>setphone(e.target.value)}/>  <span>  (ex. length , # ,/ ,0-9 , @ ,etc...  )</span> </>} 
     </div>
   )
 }
