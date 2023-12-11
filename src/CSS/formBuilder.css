@@ -1,0 +1,98 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+form {
+  display: flex;
+  width: 80%;
+}
+
+.left-column,
+.right-column {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ddd;
+}
+
+.left-column {
+  background-color: #f2f2f2;
+}
+
+label {
+  margin-bottom: 5px;
+  display: block;
+}
+
+input,
+textarea,
+select {
+  margin-bottom: 10px;
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.right-column > div {
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.right-column span {
+  font-weight: bold;
+}
+
+.right-column input[type="radio"],
+.right-column input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.right-column label {
+  margin-right: 10px;
+}
+
+.right-column textarea,
+.right-column input[type="text"],
+.right-column input[type="email"],
+.right-column input[type="number"] {
+  width: 80%;
+  padding: 8px;
+}
+
+.right-column button {
+  background-color: #f44336;
+  color: white;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.right-column button:hover {
+  background-color: #d32f2f;
+}
+
+.right-column button[type="submit"] {
+  background-color: #2196f3;
+}
+
+.right-column button[type="submit"]:hover {
+  background-color: #0d47a1;
+}

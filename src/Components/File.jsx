@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const FileUploadComponent = ({size}) => {
+const FileUploadComponent = ({ size }) => {
   const [singleFile, setSingleFile] = useState(null);
 
   const validateFileSize = (file) => {
-    const maxSizeInBytes = size* 1024*1024  // 5 MB
-    console.log(size ,"in")
+    const maxSizeInBytes = size * 1024 * 1024; // 5 MB
+    console.log(size, "in");
     return file.size <= maxSizeInBytes;
   };
 
@@ -31,13 +31,10 @@ const FileUploadComponent = ({size}) => {
     }
   };
 
-  
-
   return (
     <div>
       <input type="file" onChange={handleSingleFileChange} />
       {singleFile && <img src={singleFile} alt="Uploaded Image" width="200" />}
-          
     </div>
   );
 };
