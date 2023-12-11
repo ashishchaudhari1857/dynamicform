@@ -5,9 +5,12 @@ import SelectButton from "./SelectButton";
 import RadioButtons from "./RadioButtons";
 import Checkboxes from "./Checkbox";
 import Dropdown from "./Dropdown";
+import FileUploadComponent from "./File";
+
 
 const Form1 = () => {
   const [formFields, setFormFields] = useState([]);
+  const [size ,setSize]=useState(2);
   const formref = useRef();
   const [currentField, setCurrentField] = useState({
     label: "",
@@ -15,12 +18,15 @@ const Form1 = () => {
     options: [],
   });
   const [option, setOption] = useState([]);
-  const [check, setCheck] = useState([{ label: "", checkOptions: [] }]);
+  const [check, setCheck] = useState([]);
 
   const handleOptions = (count, newOption) => {
     setOption(newOption);
   };
-
+  const sizehandle =(size)=>{
+ setSize(size)
+  }
+  console.log("size " ,size)
   const handlerChecked = (e, item) => {
     // console.log(item);
     // const { value, checked } = e.target;
@@ -28,20 +34,18 @@ const Form1 = () => {
     // check.map((checkItem) => {
     //   return item !== checkItem && setCheck([...check, item]);
     // });
-    const existingItemIndex = check.checkOptions.findIndex(
+    const existingItemIndex = check.findIndex(
       (checkItem) => checkItem === item
     );
-    const existingItem = check.checkOptions[existingItemIndex];
+    const existingItem = check[existingItemIndex];
 
     let updatedItem;
     if (existingItem === item) {
-      updatedItem = check.checkOptions.filter(
-        (checkItem) => checkItem !== item
-      );
-      setCheck({ ...check, checkOptions: updatedItem });
+      updatedItem = check.filter((checkItem) => checkItem !== item);
+      setCheck(updatedItem);
     } else {
       updatedItem = [...check, item];
-      setCheck({ ...check, checkOptions: updatedItem });
+      setCheck(updatedItem);
     }
   };
   console.log(check);
@@ -101,6 +105,7 @@ const Form1 = () => {
             value={currentField.type}
             onChange={handleTypeChange}
             name="type"
+            sizehandle={sizehandle}
           />
 
           {currentField.type === "radio" && (
@@ -153,34 +158,22 @@ const Form1 = () => {
                 field.options.map((item, index) => {
                   return (
                     <div key={index}>
-                      <label htmlFor={`checkbox-${field.label}-${index}`}>
-                        {item}
-                      </label>
+                      <label htmlFor="checkbox">{item}</label>
                       <input
                         key={index}
-                        id={`checkbox-${field.label}-${index}`}
                         name={field.label}
                         type="checkbox"
-                        checked={item.selected}
                         value={item}
+                        onChange={(e) => {
+                          handlerChecked(e, item);
+                        }}
                       />
                     </div>
                   );
                 })}
-              {field.type === "radio" &&
-                field.options.map((item, index) => {
-                  return (
-                    <div key={index}>
-                      <label htmlFor="dropdown">{item}</label>
-                      <input
-                        key={index}
-                        name={field.label}
-                        type=""
-                        value={item}
-                      />
-                    </div>
-                  );
-                })}
+                {
+                  field.type==="file" &&<FileUploadComponent size={size}></FileUploadComponent>
+                }
               {field.type === "dropdown" && <Dropdown />}
               <button type="button" onClick={() => removeField(index)}>
                 Remove

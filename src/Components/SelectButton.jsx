@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-const SelectButton = ({value,onChange,name}) => {
+
+const SelectButton = ({value,onChange,name ,sizehandle}) => {
+  const [size ,setSize]=useState(2);
+  sizehandle(size)
   return (
     <div>
         <select value={value} onChange={onChange} name={name}>
@@ -12,7 +15,12 @@ const SelectButton = ({value,onChange,name}) => {
             <option value="radio">radio</option>
             <option value="dropdown">dropdown</option>
             <option value="checkbox">Checkbox</option>
+            <option value="file">Choose File  </option>
+            <option value="number">Phone No</option>
+
         </select>
+        {value ==="file" && <><input type='number'   value={size} onChange={(e)=>{setSize(e.target.value) 
+        }}></input> <span>/MB</span> </>}
     </div>
   )
 }
