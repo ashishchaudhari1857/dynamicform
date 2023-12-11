@@ -21,6 +21,7 @@ const SelectButton = ({value,onChange,name ,sizehandle}) => {
         </select>
         {value ==="file" && <><input type='number'   value={size} onChange={(e)=>{setSize(e.target.value) 
         }}></input> <span>/MB</span> </>}
+        {value ==="email"  && <input type="text"  ></input>}
     </div>
   )
 }

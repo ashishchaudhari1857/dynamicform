@@ -22,6 +22,7 @@ const FileUploadComponent = ({size}) => {
 
       reader.onload = function (e) {
         setSingleFile(e.target.result);
+        uploadFile(file);
       };
 
       reader.readAsDataURL(file);
@@ -31,7 +32,23 @@ const FileUploadComponent = ({size}) => {
     }
   };
 
-  
+  const uploadFile = (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('http://localhost:3000/posts', {
+      method: 'POST',
+      body: formData,
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('File uploaded successfully:', data);
+        // You can handle the server response here
+      })
+      .catch(error => {
+        console.error('Error uploading file:', error);
+      });
+  };
 
   return (
     <div>
