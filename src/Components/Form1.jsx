@@ -5,9 +5,11 @@ import SelectButton from "./SelectButton";
 import RadioButtons from "./RadioButtons";
 import Checkboxes from "./Checkbox";
 import Dropdown from "./Dropdown";
+import FileUploadComponent from "./File";
 
 const Form1 = () => {
   const [formFields, setFormFields] = useState([]);
+  const [size, setSize] = useState(2);
   const formref = useRef();
   const [currentField, setCurrentField] = useState({
     label: "",
@@ -20,8 +22,17 @@ const Form1 = () => {
   const handleOptions = (count, newOption) => {
     setOption(newOption);
   };
-
+  const sizehandle = (size) => {
+    setSize(size);
+  };
+  console.log("size ", size);
   const handlerChecked = (e, item) => {
+    // console.log(item);
+    // const { value, checked } = e.target;
+    // console.log(`${value} is ${checked}`);
+    // check.map((checkItem) => {
+    //   return item !== checkItem && setCheck([...check, item]);
+    // });
     const existingItemIndex = check.findIndex(
       (checkItem) => checkItem === item
     );
@@ -93,6 +104,7 @@ const Form1 = () => {
             value={currentField.type}
             onChange={handleTypeChange}
             name="type"
+            sizehandle={sizehandle}
           />
 
           {currentField.type === "radio" && (
@@ -158,6 +170,9 @@ const Form1 = () => {
                     </div>
                   );
                 })}
+              {field.type === "file" && (
+                <FileUploadComponent size={size}></FileUploadComponent>
+              )}
               {field.type === "dropdown" && <Dropdown />}
               <button type="button" onClick={() => removeField(index)}>
                 Remove
