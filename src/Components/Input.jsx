@@ -1,15 +1,15 @@
 import React from 'react'
 
 
-const Input = ({text,name,onChange,value}) => {
+const Input = ({type,name,onChange,value ,placeholder}) => {
   return (
     <div>
-        <input type={text}  name={name} onChange={onChange} value={value}/>
+        <input type={type}  name={name} onChange={onChange} value={value} placeholder={placeholder} />
     </div>
   )
 }
 Input.defaultProps = {
-    text: "text",
+    type: "text",
     name: 'type',
 }
 

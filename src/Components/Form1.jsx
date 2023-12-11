@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useRef } from "react";
 import Input from "./Input";
 import SelectButton from "./SelectButton";
@@ -10,8 +10,11 @@ import FileUploadComponent from "./File";
 
 const Form1 = () => {
   const [formFields, setFormFields] = useState([]);
-  const [size ,setSize]=useState(2);
   const formref = useRef();
+  const [size ,setSize]=useState(2);
+  const [Validation ,setValidatioin]=useState(2);
+  const [InputValidatioin ,setInnputValidation]=useState({mail:"" ,phone:""});
+
   const [currentField, setCurrentField] = useState({
     label: "",
     type: "text",
@@ -23,10 +26,25 @@ const Form1 = () => {
   const handleOptions = (count, newOption) => {
     setOption(newOption);
   };
-  const sizehandle =(size)=>{
+  const sizehandle =useCallback((size)=>{
  setSize(size)
-  }
-  console.log("size " ,size)
+})
+  const validateHandler = useCallback((mail, phone) => {
+    console.log(mail, phone);
+    setInnputValidation(prevState => ({
+      ...prevState,
+      mail: mail,
+      phone: phone,
+    }));
+  }, [])
+   
+  
+    
+
+
+
+
+  console.log("InputValidatioin " ,InputValidatioin)
   const handlerChecked = (e, item) => {
     // console.log(item);
     // const { value, checked } = e.target;
@@ -106,6 +124,7 @@ const Form1 = () => {
             onChange={handleTypeChange}
             name="type"
             sizehandle={sizehandle}
+            validateHandler={validateHandler}
           />
 
           {currentField.type === "radio" && (
