@@ -15,7 +15,7 @@ const Form1 = () => {
     options: [],
   });
   const [option, setOption] = useState([]);
-  const [check, setCheck] = useState([]);
+  const [check, setCheck] = useState([{ label: "", checkOptions: [] }]);
 
   const handleOptions = (count, newOption) => {
     setOption(newOption);
@@ -28,18 +28,20 @@ const Form1 = () => {
     // check.map((checkItem) => {
     //   return item !== checkItem && setCheck([...check, item]);
     // });
-    const existingItemIndex = check.findIndex(
+    const existingItemIndex = check.checkOptions.findIndex(
       (checkItem) => checkItem === item
     );
-    const existingItem = check[existingItemIndex];
+    const existingItem = check.checkOptions[existingItemIndex];
 
     let updatedItem;
     if (existingItem === item) {
-      updatedItem = check.filter((checkItem) => checkItem !== item);
-      setCheck(updatedItem);
+      updatedItem = check.checkOptions.filter(
+        (checkItem) => checkItem !== item
+      );
+      setCheck({ ...check, checkOptions: updatedItem });
     } else {
       updatedItem = [...check, item];
-      setCheck(updatedItem);
+      setCheck({ ...check, checkOptions: updatedItem });
     }
   };
   console.log(check);
@@ -151,15 +153,30 @@ const Form1 = () => {
                 field.options.map((item, index) => {
                   return (
                     <div key={index}>
-                      <label htmlFor="checkbox">{item}</label>
+                      <label htmlFor={`checkbox-${field.label}-${index}`}>
+                        {item}
+                      </label>
+                      <input
+                        key={index}
+                        id={`checkbox-${field.label}-${index}`}
+                        name={field.label}
+                        type="checkbox"
+                        checked={item.selected}
+                        value={item}
+                      />
+                    </div>
+                  );
+                })}
+              {field.type === "radio" &&
+                field.options.map((item, index) => {
+                  return (
+                    <div key={index}>
+                      <label htmlFor="dropdown">{item}</label>
                       <input
                         key={index}
                         name={field.label}
-                        type="checkbox"
+                        type=""
                         value={item}
-                        onChange={(e) => {
-                          handlerChecked(e, item);
-                        }}
                       />
                     </div>
                   );
