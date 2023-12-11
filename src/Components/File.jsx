@@ -10,7 +10,7 @@ const FileUploadComponent = ({ size }) => {
   };
 
   const validateFileFormat = (file) => {
-    const allowedFormats = ["image/jpeg", "image/png"]; // Add or modify formats as needed
+    const allowedFormats = ['image/jpeg', 'image/png', 'application/pdf'];
     return allowedFormats.includes(file.type);
   };
 
