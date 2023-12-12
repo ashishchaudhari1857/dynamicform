@@ -1,10 +1,10 @@
 import React from "react";
 import useDynamicInputs from "../Custom/UseDynamicCount";
 
-const Options = () => {
+const Options = ({ dataFun }) => {
   const { count, labels, handleCountChange, handleLabelChange } =
     useDynamicInputs(1);
-
+  dataFun(count, labels);
   return (
     // ... rest of your component using count and labels
     <div>

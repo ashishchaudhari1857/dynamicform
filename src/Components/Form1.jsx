@@ -4,50 +4,49 @@ import Input from "./Input";
 import SelectButton from "./SelectButton";
 import RadioButtons from "./RadioButtons";
 import Checkboxes from "./Checkbox";
-import Dropdown from "./Dropdown";
 import FileUploadComponent from "./File";
 import "../CSS/formBuilder.css";
+import Options from "./Options";
 
 const Form1 = () => {
   const [formFields, setFormFields] = useState([]);
   const formref = useRef();
-  const [size ,setSize]=useState(2);
-  const [Validation ,setValidatioin]=useState(2);
-  const [InputValidatioin ,setInnputValidation]=useState({mail:"" ,phone:""});
+  const [size, setSize] = useState(2);
+  const [Validation, setValidatioin] = useState(2);
+  const [InputValidatioin, setInnputValidation] = useState({
+    mail: "",
+    phone: "",
+  });
 
   const [currentField, setCurrentField] = useState({
     label: "",
     type: "text",
     options: [],
+    required: false,
   });
   const [option, setOption] = useState([]);
   const [check, setCheck] = useState([]);
+  // const [required, setRequired] = useState(false);
 
   const handleOptions = (count, newOption) => {
     setOption(newOption);
   };
 
   const validateHandler = useCallback((mail, phone) => {
-    console.log(mail, phone);
-    setInnputValidation(prevState => ({
+    // console.log(mail, phone);
+    setInnputValidation((prevState) => ({
       ...prevState,
       mail: mail,
       phone: phone,
     }));
-  }, [])
-   
-  
-    
+  }, []);
 
-
-
-
-  console.log("InputValidatioin " ,InputValidatioin)
+  // console.log("InputValidatioin ", InputValidatioin);
   const sizehandle = (size) => {
     setSize(size);
   };
   // console.log("size ", size);
-  
+
   const handlerChecked = (e, item) => {
     const existingItemIndex = check.findIndex(
       (checkItem) => checkItem === item
@@ -74,7 +73,7 @@ const Form1 = () => {
       alert("please enter label");
     } else {
       setFormFields([...formFields, currentField]);
-      setCurrentField({ label: "", type: "text" });
+      setCurrentField({ label: "", type: "text", required: false });
     }
   };
 
@@ -129,7 +128,17 @@ const Form1 = () => {
             sizehandle={sizehandle}
             validateHandler={validateHandler}
           />
-
+          <label>Required Field</label>
+          <input
+            type="checkbox"
+            checked={currentField.required}
+            onChange={() => {
+              setCurrentField({
+                ...currentField,
+                required: !currentField.required,
+              });
+            }}
+          />
           {currentField.type === "radio" && (
             <RadioButtons dataFun={handleOptions} />
           )}
@@ -137,10 +146,13 @@ const Form1 = () => {
             <Checkboxes dataFun={handleOptions} />
           )}
 
-          {currentField.type === "dropdown" && <Dropdown />}
+          {currentField.type === "dropdown" && (
+            <Options dataFun={handleOptions} />
+          )}
           <button type="button" onClick={addField}>
             Add Field
           </button>
+          {/* {console.log(currentField)} */}
         </div>
         <br />
         <br />
@@ -155,13 +167,25 @@ const Form1 = () => {
                 <textarea name={field.label}></textarea>
               )}
               {field.type === "text" && (
-                <input name={field.label} type={field.type}></input>
+                <input
+                  name={field.label}
+                  type={field.type}
+                  required={field.required}
+                ></input>
               )}
               {field.type === "email" && (
-                <input name={field.label} type={field.type}></input>
+                <input
+                  name={field.label}
+                  type={field.type}
+                  required={field.required}
+                ></input>
               )}
               {field.type === "number" && (
-                <input name={field.label} type={field.type}></input>
+                <input
+                  name={field.label}
+                  type={field.type}
+                  required={field.required}
+                ></input>
               )}
               {field.type === "radio" &&
                 field.options.map((item, index) => {
@@ -173,6 +197,7 @@ const Form1 = () => {
                         name={field.label}
                         type="radio"
                         value={item}
+                        required={field.required}
                       />
                     </div>
                   );
@@ -187,6 +212,7 @@ const Form1 = () => {
                         name={field.label}
                         type="checkbox"
                         value={item}
+                        required={field.required}
                         onChange={(e) => {
                           handlerChecked(e, item);
                         }}
@@ -194,10 +220,24 @@ const Form1 = () => {
                     </div>
                   );
                 })}
+              {field.type === "dropdown" && (
+                <div>
+                  <select required={field.required}>
+                    {field.options.map((item, index) => {
+                      console.log(item);
+                      return (
+                        <option key={index} value={item}>
+                          {item}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+              )}
               {field.type === "file" && (
                 <FileUploadComponent size={size}></FileUploadComponent>
               )}
-              {field.type === "dropdown" && <Dropdown />}
+              {/* {field.type === "dropdown" && <Dropdown />} */}
               <button type="button" onClick={() => removeField(index)}>
                 Remove
               </button>
